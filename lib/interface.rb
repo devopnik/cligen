@@ -3,6 +3,7 @@
 # TODO:
 #   - import descriptions for roles
 #   - intuit if it is a namespaced role task or a direct task runner
+['thor','helpers'].each { |add| Dir["#{File.dirname(__FILE__)}/#{add}/**/*.rb"].each {|file| require file } }
 module Interface
 
   class RoleCommands < Thor

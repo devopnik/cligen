@@ -1,7 +1,7 @@
 <%="module  #{@namespace}" %>
   <%= @role? "module #{@role}" : "module Tasks" %>
     <%= "def self.role_description" if defined?(@description)  %>
-     <%= "'#{@description}'" if defined?(@description)  %>
+     <%= "\"#{@description}\"" if defined?(@description)  %>
     <%= "end" if defined?(@description) %>
     <%= "def self.included(base)" %>
       <%= "base.class_eval do" %>
@@ -12,13 +12,15 @@
           <%= 'end' %>
         <%= '}' %>
 <%=  %>
-        <%= 'desc "taskname", "Description of the task"' %>
-        <%= 'long_desc <<-LONGDESC' %>
-            <%= "Description of the task\n" %>
-            <%= 'In the longer form, you can explain in detail how the task should be run and what output to expect:\n' %>
-            <%= 'Example: taskname -f first -s second -t third\n' %>
-            <%= 'Outputs: { output description here }\n' %>
-          <%= 'LONGDESC' %>
+        <%= 'description = "Description of the task"' %>
+        <%= 'desc "taskname", description' %>
+        <%= 'long_desc %Q{' %>
+            <%= "#{description}" %>
+            <%=  %>
+            <%= 'In the longer form, you can explain in detail how the task should be run and what output to expect:' %>
+            <%= 'Example: taskname -f first -s second -t third' %>
+            <%= 'Outputs: { output description here }' %>
+          <%= '}' %>
         <%= 'option :first, :required => true, :aliases => ["-f", "--first"] '%>
         <%= 'option :second, :aliases => ["-s", "--second"] '%>
         <%= 'option :third, :aliases => ["-t", "--third"] '%>
